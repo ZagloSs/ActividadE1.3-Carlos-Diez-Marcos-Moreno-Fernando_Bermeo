@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<paciente>
-	<id>001351227</id>
-	<nombre>Macarena</nombre>
-	<apellido1>López</apellido1>
-	<apellido2>Silva</apellido2>
-	<nacimiento>02/11/1999</nacimiento>
-	<localidad>Madrid</localidad>
-</paciente>
