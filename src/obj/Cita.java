@@ -1,74 +1,51 @@
 package obj;
 
 public class Cita {
-	private String Centro;
-	private String Especialidad;
-	private String Doctor;
-	private String Fecha;
-	private String Hora;
+	private String centro;
+	private String especialidad;
+	private String doctor;
+	private String fecha;
+	private String hora;
 	
-	
-	//Constructor
 	public Cita(String centro, String especialidad, String doctor, String fecha, String hora) {
-		Centro = centro;
-		Especialidad = especialidad;
-		Doctor = doctor;
-		Fecha = fecha;
-		Hora = hora;
+		this.centro = centro;
+		this.especialidad = especialidad;
+		this.doctor = doctor;
+		this.fecha = fecha;
+		this.hora = hora;
 	}
-
-
-	//Getter y Setters
+	
 	public String getCentro() {
-		return Centro;
+		return centro;
 	}
-
-
 	public void setCentro(String centro) {
-		Centro = centro;
+		this.centro = centro;
 	}
-
-
 	public String getEspecialidad() {
-		return Especialidad;
+		return especialidad;
 	}
-
-
 	public void setEspecialidad(String especialidad) {
-		Especialidad = especialidad;
+		this.especialidad = especialidad;
 	}
-
-
 	public String getDoctor() {
-		return Doctor;
+		return doctor;
 	}
-
-
 	public void setDoctor(String doctor) {
-		Doctor = doctor;
+		this.doctor = doctor;
 	}
-
-
 	public String getFecha() {
-		return Fecha;
+		return fecha;
 	}
-
-
 	public void setFecha(String fecha) {
-		Fecha = fecha;
+		this.fecha = fecha;
 	}
-
-
 	public String getHora() {
-		return Hora;
+		return hora;
 	}
-
-
 	public void setHora(String hora) {
-		Hora = hora;
+		this.hora = hora;
 	}
 	
 	
-
 	
 }

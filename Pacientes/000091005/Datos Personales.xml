@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<paciente>
+	<id>00091005</id>
+	<nombre>Juan</nombre>
+	<apellido1>Sevilla</apellido1>
+	<apellido2>Rodríguez</apellido2>
+	<nacimiento>19/02/1966</nacimiento>
+	<localidad>Móstoles</localidad>
+</paciente>
