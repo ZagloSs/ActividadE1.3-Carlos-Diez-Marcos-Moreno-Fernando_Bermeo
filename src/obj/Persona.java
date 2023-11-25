@@ -3,7 +3,7 @@ package obj;
 import java.util.ArrayList;
 
 public class Persona {
-	private long iD;
+	private int iD;
 	private String nombre;
 	private String apellido1;
 	private String apellido2;
@@ -12,7 +12,7 @@ public class Persona {
 	private ArrayList<Cita> citas;
 	
 	
-	public Persona(long iD, String nombre, String apellido1, String apellido2, String nacimiento,
+	public Persona(int iD, String nombre, String apellido1, String apellido2, String nacimiento,
 			String localidadResidencia, ArrayList<Cita> citas) {
 		this.iD = iD;
 		this.nombre = nombre;
@@ -24,12 +24,12 @@ public class Persona {
 	}
 
 
-	public long getiD() {
+	public int getiD() {
 		return iD;
 	}
 
 
-	public void setiD(long iD) {
+	public void setiD(int iD) {
 		this.iD = iD;
 	}
 
