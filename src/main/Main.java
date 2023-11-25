@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import hilos.Consumidor;
 import hilos.Productor;
 import obj.Persona;
 
@@ -14,8 +15,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		File pacientes = new File("pacientes.txt");
-		
+		Scanner sc;
 		ArrayList<Persona> listaPersonas = new ArrayList<Persona>();
+		ArrayList<Consumidor> hilosConsumidores = new ArrayList<Consumidor>();
 		
 		//Crear el archivo TXT si no existiese
 		try {
@@ -23,8 +25,8 @@ public class Main {
 				pacientes.createNewFile();
 			}
 			
-			// Leer el archivo TXT con los datos de los pacientes
-			Scanner sc = new Scanner(pacientes);
+			
+
 			
 			// Crear la carpeta "Pacientes" si no existe
 			File carpeta = new File("Pacientes");
@@ -37,6 +39,13 @@ public class Main {
 			Productor hiloProductor = new Productor(listaPersonas);
 			hiloProductor.start();
 			hiloProductor.join();
+			
+			//Lanzar el hilo consumidor para que cree las carpetas
+			for(int i = 0; i<listaPersonas.size(); i++) {
+				hilosConsumidores.add(new Consumidor(listaPersonas.get(i)));
+				hilosConsumidores.get(i).start();
+				hilosConsumidores.get(i).join();
+			}
 			
 			
 			
