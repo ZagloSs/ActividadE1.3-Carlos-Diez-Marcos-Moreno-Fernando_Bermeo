@@ -4,32 +4,35 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import obj.Cita;
+import obj.Persona;
 
 public class Main {
 
 	public static void main(String[] args) {
+        ArrayList<Persona> listaPacientes = new ArrayList<>(); //<-------Tocado por fernando
 		File pacientes = new File("pacientes.txt");
 		
 		//Crear el archivo TXT si no existiese
 		try {
 			if (!pacientes.exists()) {
 				pacientes.createNewFile();
-			}
-			
-			// Leer el archivo TXT con los datos de los pacientes
-			Scanner sc = new Scanner(pacientes);
-			
+			}			
+            
 			// Crear la carpeta "Pacientes" si no existe
 			File carpeta = new File("Pacientes");
-
+			//Se crea el hilo productor para leer datos y meterlos al Array
+			Thread hiloProductor = new Thread(() -> { //<-------Tocado por fernando
+			try (Scanner sc = new Scanner(pacientes)) { //<-------Tocado por fernando
 			if (!carpeta.exists()) {
 				carpeta.mkdir();
 			}
-
+			
 			// Recorrer el archivo línea por línea
-			while (sc.hasNextLine()) {
-				
+			while (sc.hasNextLine()) {			
 				// Obtener los datos personales del paciente (primera línea)
 				String[] datos = sc.nextLine().split(";");
 				String id = datos[0];
@@ -38,6 +41,8 @@ public class Main {
 				String apellido2 = datos[3];
 				String nacimiento = datos[4];
 				String localidad = datos[5];
+				int ID=Integer.parseInt(id);
+				
 				
 				// Crear la subcarpeta con el ID del paciente (formato de 9 dígitos)
 				String idFormato = String.format("%09d", Integer.parseInt(id));
@@ -47,7 +52,9 @@ public class Main {
 				// Crear el archivo "Datos Personales.xml" con la información personal del
 				// paciente
 				File datosPersonales = new File(subcarpeta, "Datos Personales.xml");
-				PrintWriter pw = new PrintWriter(datosPersonales);
+				PrintWriter pw;
+				try { //<-------Tocado por fernando
+					pw = new PrintWriter(datosPersonales);
 				pw.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 				pw.println("<paciente>");
 				pw.println("\t<id>" + id + "</id>");
@@ -65,7 +72,8 @@ public class Main {
 				pw = new PrintWriter(citas);
 				pw.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 				pw.println("<citas>");
-				
+				//Creamos la lista de citas
+				ArrayList<Cita> pcitas = new ArrayList<>();  //<-------Tocado por fernando
 				// Recorrer las líneas que empiezan por "#" hasta encontrar una línea vacía o el
 				// final del archivo
 				while (sc.hasNextLine()) {
@@ -81,6 +89,7 @@ public class Main {
 						String doctor = datosCita[2];
 						String fecha = datosCita[3];
 						String hora = datosCita[4];
+						pcitas.add(new Cita(centro, especialidad, doctor, fecha, hora)); //<-------Tocado por fernando
 						// Escribir los datos de la cita en formato XML
 						pw.println("\t<cita>");
 						pw.println("\t\t<centro>" + centro + "</centro>");
@@ -91,10 +100,22 @@ public class Main {
 						pw.println("\t</cita>");
 					}
 				}
+				synchronized(listaPacientes) {
+					listaPacientes.add(new Persona(ID, nombre, apellido1, apellido2, nacimiento, localidad, pcitas));
+				}
 				pw.println("</citas>");
 				pw.close();
+				} catch (FileNotFoundException e) { //<-------Tocado por fernando
+					e.printStackTrace();//<-------Tocado por fernando
+				}
+                }
+			} catch (FileNotFoundException e1) {//<-------Tocado por fernando
+				e1.printStackTrace();//<-------Tocado por fernando
 			}
-			
+            });
+		
+
+			Scanner sc = new Scanner(pacientes); //<-------Tocado por fernando
 			// Leer la carpeta de un paciente y mostrar un resumen por consola
             System.out.println("Introduce el ID del paciente del que quieres ver el resumen:");
             sc = new Scanner(System.in);
@@ -142,8 +163,8 @@ public class Main {
                 Scanner scCitas = new Scanner(citas);
                 
                 // Saltar las dos primeras líneas
-                scCitas.nextLine();
-                scCitas.nextLine();
+                //scCitas.nextLine();
+                //scCitas.nextLine();
                 
                 // Mostrar el título de las citas
                 System.out.println("Citas:");
@@ -188,7 +209,6 @@ public class Main {
 			System.out.println("No se ha encontrado el archivo pacientes.txt");
 		} catch (IOException e) {
 			System.out.println("Archivo pacientes.txt no encontrado, creando...");
-		}
+		} 
 	}
-
 }

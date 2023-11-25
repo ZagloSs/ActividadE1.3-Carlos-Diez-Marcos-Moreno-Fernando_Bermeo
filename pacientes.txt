@@ -1,4 +1,4 @@
-00091005;Juan;Sevilla;Rodríguez;19/02/1966;Móstoles
+000091005;Juan;Sevilla;Rodríguez;19/02/1966;Móstoles
 #Hospital La Paz;Dermatología;Dra. María Lozano Robles;15/05/2023;8:45
 #Hospital La Paz;Dermatología;Dra. María Lozano Robles;21/05/2024;9:05
 #Hospital La Paz;Alergología;Dr. Manuel Manzano Rojas;13/06/2024;10:55
